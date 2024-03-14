@@ -27,4 +27,4 @@ jobs:
         run: docker-compose build
       
       - name: Push To Dockerhub
-        run: docker push AminahAkhtar/cicd-pipeline:latest
+        run: docker push aminahakhtar/cicd-pipeline:latest
