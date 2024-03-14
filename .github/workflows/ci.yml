@@ -26,5 +26,8 @@ jobs:
       - name: Build the Docker image
         run: docker-compose build
       
-      - name: Push To Dockerhub
+      - name: Tag Docker Image
+        run: docker tag cicd-pipeline:latest aminahakhtar30/cicd-pipeline:latest
+
+      - name: Push Docker Image
         run: docker push aminahakhtar30/cicd-pipeline:latest
