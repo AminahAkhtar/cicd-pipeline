@@ -1,0 +1,42 @@
+Connection to machines info
+
+PROJECT#1 - DEPLOY
+
+Instance ID
+i-0c87be4436705cf4a (core_ripe_platform)
+Open an SSH client.
+
+Locate your private key file. The key used to launch this instance is smartmedtech-1.pem
+
+Run this command, if necessary, to ensure your key is not publicly viewable.
+ chmod 400 "smartmedtech-1.pem"
+
+Connect to your instance using its Public DNS:
+ ec2-52-21-194-80.compute-1.amazonaws.com
+
+Example:
+
+ ssh -i "smartmedtech-1.pem" ubuntu@ec2-52-21-194-80.compute-1.amazonaws.com
+
+
+
+PROJECT#2 - DEPLOY
+
+Instance ID
+i-0bcc164be5c194b3c (core_ripe_platform)
+Open an SSH client.
+
+Locate your private key file. The key used to launch this instance is core_ripe_platform.pem
+
+Run this command, if necessary, to ensure your key is not publicly viewable.
+ chmod 400 "core_ripe_platform.pem"
+
+Connect to your instance using its Public DNS:
+ ec2-52-45-2-215.compute-1.amazonaws.com
+
+Example:
+
+ ssh -i "core_ripe_platform.pem" ubuntu@ec2-52-45-2-215.compute-1.amazonaws.com
+
+
+ 
