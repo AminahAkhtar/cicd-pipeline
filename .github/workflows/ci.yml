@@ -22,7 +22,7 @@ jobs:
         run: docker-compose -f docker-compose.yml build
 
       - name: Tag Docker Image
-        run: docker tag filer:latest aminahakhtar/cicd-pipeline:latest
+        run: docker tag filer aminahakhtar/cicd-pipeline:latest
 
       - name: Push Docker Image
         run: docker push aminahakhtar/cicd-pipeline:latest
