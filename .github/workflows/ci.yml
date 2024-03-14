@@ -12,6 +12,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Print Docker Hub Username
+        run: echo "Docker Hub Username: ${{ secrets.DOCKER_USERNAME }}"
+    - name: Print Docker Hub Password
+      run: echo "Docker Hub Password: ${{ secrets.DOCKER_PASSWORD }}"
     - name: Login Dockerhub
       env:
           DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
