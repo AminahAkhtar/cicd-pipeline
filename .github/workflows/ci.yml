@@ -5,23 +5,26 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
       - name: Print Docker Hub Username
         run: echo "Docker Hub Username: ${{ secrets.DOCKER_USERNAME }}"
+      
       - name: Print Docker Hub Password
         run: echo "Docker Hub Password: ${{ secrets.DOCKER_PASSWORD }}"
+      
       - name: Login Dockerhub
         env:
-            DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-            DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD         
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
       - name: Build the Docker image
         run: docker build -t cicd-pipeline .
+      
       - name: Push To Dockerhub
         run: docker push AminahAkhtar/cicd-pipeline:latest
