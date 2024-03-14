@@ -21,7 +21,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        run: docker login -u AminahAkhtar30 -p 301510mel
 
       - name: Build the Docker image
         run: docker build -t cicd-pipeline .
