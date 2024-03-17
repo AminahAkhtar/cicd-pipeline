@@ -59,13 +59,13 @@ jobs:
       #   if: success()
       #   run: |
       #     ssh ec2-user@your-ec2-instance-ip 'bash -s' < deploy_script.sh
-      - name: Deploy to EC2
-        if: success()
-        uses: appleboy/ssh-action@master
-        with:
-          host: ec2-52-45-2-215.compute-1.amazonaws.com
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # Commands to execute on the EC2 instance
-            ssh ubuntu@ec2-52-45-2-215.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
+      # - name: Deploy to EC2
+      #   if: success()
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ec2-52-45-2-215.compute-1.amazonaws.com
+      #     username: ubuntu
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       # Commands to execute on the EC2 instance
+      #       ssh ubuntu@ec2-52-45-2-215.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
