@@ -27,7 +27,7 @@ jobs:
       - name: Tag and Push Docker Images
         run: |
           docker-compose -f docker-compose.yml push
-          docker tag filer aminahakhtar/cicd-pipeline:filer
+          docker tag cicd-pipeline_filer aminahakhtar/cicd-pipeline:filer
           docker push aminahakhtar/cicd-pipeline:filer
-          docker tag nginx aminahakhtar/cicd-pipeline:nginx
+          docker tag nginx:latest aminahakhtar/cicd-pipeline:nginx
           docker push aminahakhtar/cicd-pipeline:nginx
