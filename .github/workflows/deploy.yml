@@ -1,0 +1,71 @@
+# name: Docker Image CI
+
+# on:
+#   push:
+#     branches: [ "main" ]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v3
+
+
+#       - name: Login Dockerhub
+#         env:
+#           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+#       - name: Check Docker Images
+#         run: docker images
+
+#       - name: Build Docker Image
+#         run: docker-compose -f docker-compose.yml build
+
+#       - name: Tag and Push Docker Images
+#         run: |
+#           docker-compose -f docker-compose.yml push
+#           docker tag cicd-pipeline_filer aminahakhtar/cicd-pipeline:filer
+#           docker push aminahakhtar/cicd-pipeline:filer
+#           docker tag nginx:latest aminahakhtar/cicd-pipeline:nginx
+#           docker push aminahakhtar/cicd-pipeline:nginx
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and Push Docker Images
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
+
+      # - name: Deploy to EC2
+      #   if: success()
+      #   run: |
+      #     ssh ec2-user@your-ec2-instance-ip 'bash -s' < deploy_script.sh
+      - name: Deploy to EC2
+        if: success()
+        uses: appleboy/ssh-action@master
+        with:
+          host: ec2-52-45-2-215.compute-1.amazonaws.com
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Commands to execute on the EC2 instance
+            ssh ubuntu@ec2-52-45-2-215.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
