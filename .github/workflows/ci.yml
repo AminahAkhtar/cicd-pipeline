@@ -18,6 +18,9 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
+      - name: Check Docker Images
+        run: docker images
+
       - name: Build Docker Image
         run: docker-compose -f docker-compose.yml build
 
