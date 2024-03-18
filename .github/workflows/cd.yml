@@ -1,0 +1,40 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Pull Docker Image
+        run: sudo docker pull aminahakhtar30/cicd-pipeline:filer
+
+      - name: Delete Old Docker Container
+        run: sudo docker rm -f cicd-pipeline-container || true
+
+      - name: Run Docker Container
+        # run: sudo docker compose up -d -p 8005:8005 --restart always --name cicd-pipeline-container aminahakhtar30/cicd-pipeline:filer
+        run: sudo docker compose -f docker-compose.yml up -d --build --force-recreate
+
+        
+
+      # - name: Deploy to EC2
+      #   if: success()
+      #   run: |
+      #     ssh ec2-user@your-ec2-instance-ip 'bash -s' < deploy_script.sh
+      # - name: Deploy to EC2
+      #   if: success()
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ec2-52-45-2-215.compute-1.amazonaws.com
+      #     username: ubuntu
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       # Commands to execute on the EC2 instance
+      #       ssh ubuntu@ec2-52-45-2-215.compute-1.amazonaws.com 'bash -s' < deploy_script.sh
